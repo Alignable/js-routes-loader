@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "name": "",
+      "path": "/emptyName(.:format)",
+      "methods": ["GET"]
+    }
+  ]
+}

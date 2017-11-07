@@ -1,0 +1,70 @@
+{
+  "name": "js-routes-loader",
+  "version": "0.1.0",
+  "description": "A webpack loader for parsing route definitions in json files and wrapping them with a simple javascript api.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:clean": "rimraf dist/",
+    "build:babel": "babel src -d dist --source-maps",
+    "build": "npm run build:clean && npm run build:babel",
+    "lint": "eslint .",
+    "test:link": "rimraf node_modules/js-routes-loader && ln -s .. node_modules/js-routes-loader",
+    "test:mocha": "mocha-webpack --webpack-config ./test/webpack.config.js ./test/*.spec.js",
+    "test": "npm run build && npm run test:link && npm run test:mocha",
+    "test:coverage": "cross-env NODE_ENV=test nyc npm run test",
+    "security": "nsp check",
+    "travis:lint": "npm run lint && npm run security",
+    "travis:test": "npm run test -- --runInBand",
+    "travis:coverage": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test -- --runInBand",
+    "release": "standard-version"
+  },
+  "peerDependencies": {
+    "webpack": "^3.0.0"
+  },
+  "dependencies": {
+    "loader-utils": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.24.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-es2015": "6.24.1",
+    "chai": "^4.1.2",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.10.0",
+    "eslint-config-webpack": "^1.2.5",
+    "eslint-plugin-import": "^2.8.0",
+    "eval": "^0.1.2",
+    "memory-fs": "^0.4.1",
+    "mocha": "3.3.0",
+    "mocha-webpack": "^1.0.1",
+    "nsp": "^3.1.0",
+    "nyc": "^11.3.0",
+    "rimraf": "^2.6.2",
+    "sinon": "^4.1.1",
+    "sinon-chai": "^2.14.0",
+    "standard-version": "^4.2.0",
+    "webpack": "3.1.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alignable/js-routes-loader.git"
+  },
+  "keywords": [
+    "webpack",
+    "routes",
+    "loader"
+  ],
+  "author": {
+    "name": "Jon Palmer",
+    "url": "http://www.alignable.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Alignable/js-routes-loader/issues"
+  },
+  "homepage": "https://github.com/Alignable/js-routes-loader"
+}

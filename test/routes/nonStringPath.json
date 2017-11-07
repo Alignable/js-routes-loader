@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "name": "nonStringpath",
+      "path": 1234,
+      "methods": ["GET"]
+    }
+  ]
+}

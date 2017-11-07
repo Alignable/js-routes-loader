@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "name": "starshipCrewMember",
+      "path": "/starships/:starship_id/crew_members/:id(.:format)",
+      "requiredParams": ["starship_id", "id"],
+      "methods": ["GET", "PUT", "PATCH", "DELETE"]
+    }
+  ]
+}

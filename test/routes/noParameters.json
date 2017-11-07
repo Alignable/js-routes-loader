@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "name": "starships",
+      "path": "/starships(.:format)",
+      "requiredParams": [],
+      "methods": ["GET", "POST"]
+    }
+  ]
+}

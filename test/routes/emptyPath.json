@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "name": "emptypath",
+      "path": "",
+      "methods": ["GET"]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "name": "noParams",
+      "path": "/noParams(.:format)",
+      "methods": ["GET"]
+    },
+    {
+      "name": "noMethods",
+      "path": "/noMethods(.:format)",
+      "requiredParams": []
+    },
+    {
+      "name": "noFormat",
+      "path": "/noFormat",
+      "requiredParams": [],
+      "methods": ["GET"]
+    }
+  ]
+}
