@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "test:link": "rimraf node_modules/js-routes-loader && ln -s .. node_modules/js-routes-loader",
     "test:mocha": "mocha-webpack --webpack-config ./test/webpack.config.js ./test/*.spec.js",
+    "test:watch": "mocha-webpack --webpack-config ./test/webpack.config.js ./test/*.spec.js --watch",
     "test": "npm run build && npm run test:link && npm run test:mocha",
     "test:coverage": "cross-env NODE_ENV=test nyc npm run test",
     "security": "nsp check",

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import noNameRoutes, { errors as noNameErrors } from './routes/noName.json';
-import emptyNameRoutes, { errors as emptyNameErrors } from './routes/emptyName.json';
-import nonStringName, { errors as nonStringNameErrors } from './routes/nonStringName.json';
+import noNameRoutes, { errors as noNameErrors } from './routes/errors/noName.json';
+import emptyNameRoutes, { errors as emptyNameErrors } from './routes/errors/emptyName.json';
+import nonStringName, { errors as nonStringNameErrors } from './routes/errors/nonStringName.json';
 
 describe('routes with name errors', () => {
   const itBehavesLikeNameErrorRoute = (routes, errors, expectedpath) => {

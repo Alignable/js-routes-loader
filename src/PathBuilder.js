@@ -1,25 +1,48 @@
 import querystring from 'querystring';
 
-const requiredParamRegex = param => new RegExp(`:${param}`);
-const requiredParamReplace = param => param;
+const globParamRegex = param => new RegExp(`\\*${param}`);
+const globParamReplace = (value, isGlob) => {
+  const isArray = value instanceof Array;
+  if (!isGlob && isArray) {
+    throw new Error('Tried to pass an array to a parameter that is not a glob.');
+  }
+  if (!isGlob || !isArray) {
+    return value;
+  }
+  return value.join('/');
+};
 
-const optionalParamRegex = param => new RegExp(`\\(([^\\(\\)].*):${param}([^\\(\\)]*)\\)`);
-const optionalParamReplace = param => (typeof param !== 'undefined' ? `$1${param}$2` : '');
+const requiredParamRegex = param => new RegExp(`[:\\*]${param}`);
+const requiredParamReplace = (value, isGlob) => globParamReplace(value, isGlob);
+
+const optionalParamRegex = param => new RegExp(`\\(([^\\(\\)].*)[:\\*]${param}([^\\(\\)]*)\\)`);
+const optionalParamReplace = (value, isGlob) => (typeof value !== 'undefined' ? `$1${globParamReplace(value, isGlob)}$2` : '');
 
 const matchesRequiredParam = (path, param) => path.match(requiredParamRegex(param));
 const matchesOptionalParam = (path, param) => path.match(optionalParamRegex(param));
+const matchesGlobParam = (path, param) => path.match(globParamRegex(param));
 
-const replaceRequiredParam = (path, param, value) => path.replace(requiredParamRegex(param), requiredParamReplace(value));
-const replaceOptionalParam = (path, param, value) => path.replace(optionalParamRegex(param), optionalParamReplace(value));
+const replaceRequiredParam = (path, param, value) => {
+  const isGlob = matchesGlobParam(path, param);
+  const regex = requiredParamRegex(param);
+  const replacement = requiredParamReplace(value, isGlob);
+  return path.replace(regex, replacement);
+};
+
+const replaceOptionalParam = (path, param, value) => {
+  const isGlob = matchesGlobParam(path, param);
+  const regex = optionalParamRegex(param);
+  const replacement = optionalParamReplace(value, isGlob);
+  return path.replace(regex, replacement);
+};
 
 const checkErrors = (params, requiredParams, options) => {
-  // error check params agasint requiredParams
   let error;
-  if (!(options instanceof Object)) {
+  if (!(options instanceof Object && !(options instanceof Array))) {
     error = 'too many parameters';
   } else {
     params.forEach((param) => {
-      if (typeof param === 'undefined' || param instanceof Object) {
+      if (typeof param === 'undefined' || (param instanceof Object && !(param instanceof Array))) {
         error = 'too few parameters';
       }
     });

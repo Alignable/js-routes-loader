@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "name": "missingParams",
+      "path": "/starthips/:id",
+      "requiredParams": ["id"],
+      "optionalParams": ["format"],
+      "methods": ["GET"]
+    }
+  ]
+}

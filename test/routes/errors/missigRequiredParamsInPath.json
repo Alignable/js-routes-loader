@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "name": "missingParams",
+      "path": "/startships/:starshipId/crewMembers",
+      "requiredParams": ["starshipId", "id"],
+      "methods": ["GET"]
+    }
+  ]
+}

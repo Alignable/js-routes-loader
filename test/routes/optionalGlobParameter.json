@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "name": "logs",
+      "path": "/logs(/*date)",
+      "optionalParams": ["date"],
+      "methods": ["GET"]
+    }
+  ]
+}

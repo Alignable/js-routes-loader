@@ -2,8 +2,8 @@
   "routes": [
     {
       "name": "missingParams",
-      "path": "/posts/:post_id/comments",
-      "requiredParams": ["post_id"],
+      "path": "/startships/:id.:format",
+      "requiredParams": ["id"],
       "optionalParams": ["format"],
       "methods": ["GET"]
     }

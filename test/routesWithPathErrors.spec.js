@@ -1,9 +1,10 @@
 import { expect } from 'chai';
-import nopathRoutes, { errors as nopathErrors } from './routes/noPath.json';
-import emptypathRoutes, { errors as emptypathErrors } from './routes/emptyPath.json';
-import nonStringpathRoutes, { errors as nonStringpathErrors } from './routes/nonStringPath.json';
-import missigRequiredParamsInpathRoutes, { errors as missigRequiredParamsInpathErrors } from './routes/missigRequiredParamsInPath.json';
-import missigOptionalParamsInpathRoutes, { errors as missigOptionalParamsInpathErrors } from './routes/missigOptionalParamsInPath.json';
+import nopathRoutes, { errors as nopathErrors } from './routes/errors/noPath.json';
+import emptypathRoutes, { errors as emptypathErrors } from './routes/errors/emptyPath.json';
+import nonStringpathRoutes, { errors as nonStringpathErrors } from './routes/errors/nonStringPath.json';
+import missigRequiredParamsInPathRoutes, { errors as missigRequiredParamsInPathErrors } from './routes/errors/missigRequiredParamsInPath.json';
+import missigOptionalParamsInPathRoutes, { errors as missigOptionalParamsInPathErrors } from './routes/errors/missigOptionalParamsInPath.json';
+import optionalParamsAsRequiredInPathRoutes, { errors as optionalParamsAsRequiredInPathErrors } from './routes/errors/optionalParamsAsRequiredInPath.json';
 
 describe('routes with path errors', () => {
   const itBehavesLikepathErrorRoute = (routes, errors, expectedName) => {
@@ -25,11 +26,15 @@ describe('routes with path errors', () => {
     itBehavesLikepathErrorRoute(nonStringpathRoutes, nonStringpathErrors, 'nonStringpath');
   });
 
-  it('path has include all required params', () => {
-    itBehavesLikepathErrorRoute(missigRequiredParamsInpathRoutes, missigRequiredParamsInpathErrors, 'missingParams');
+  it('path has to include all required params', () => {
+    itBehavesLikepathErrorRoute(missigRequiredParamsInPathRoutes, missigRequiredParamsInPathErrors, 'missingParams');
   });
 
-  it('path has include all optional params', () => {
-    itBehavesLikepathErrorRoute(missigOptionalParamsInpathRoutes, missigOptionalParamsInpathErrors, 'missingParams');
+  it('path has to include all optional params', () => {
+    itBehavesLikepathErrorRoute(missigOptionalParamsInPathRoutes, missigOptionalParamsInPathErrors, 'missingParams');
+  });
+
+  it('path cannot have optional that look like required params', () => {
+    itBehavesLikepathErrorRoute(optionalParamsAsRequiredInPathRoutes, optionalParamsAsRequiredInPathErrors, 'missingParams');
   });
 });
