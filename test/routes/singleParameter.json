@@ -2,7 +2,7 @@
   "routes": [
     {
       "name": "starship",
-      "path": "/starship/:id(.:format)",
+      "path": "/starship/:id",
       "requiredParams": ["id"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     }

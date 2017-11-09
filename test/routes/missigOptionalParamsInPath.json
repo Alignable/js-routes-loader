@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "name": "missingParams",
+      "path": "/posts/:post_id/comments",
+      "requiredParams": ["post_id"],
+      "optionalParams": ["format"],
+      "methods": ["GET"]
+    }
+  ]
+}

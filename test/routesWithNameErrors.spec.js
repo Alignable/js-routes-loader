@@ -12,14 +12,14 @@ describe('routes with name errors', () => {
   };
 
   it('name is required', () => {
-    itBehavesLikeNameErrorRoute(noNameRoutes, noNameErrors, '/noName(.:format)');
+    itBehavesLikeNameErrorRoute(noNameRoutes, noNameErrors, '/noName');
   });
 
   it('name cannot be empty', () => {
-    itBehavesLikeNameErrorRoute(emptyNameRoutes, emptyNameErrors, '/emptyName(.:format)');
+    itBehavesLikeNameErrorRoute(emptyNameRoutes, emptyNameErrors, '/emptyName');
   });
 
   it('name has to be a string', () => {
-    itBehavesLikeNameErrorRoute(nonStringName, nonStringNameErrors, '/nonStringName(.:format)');
+    itBehavesLikeNameErrorRoute(nonStringName, nonStringNameErrors, '/nonStringName');
   });
 });

@@ -2,7 +2,7 @@
   "routes": [
     {
       "name": "missingParams",
-      "path": "/posts/:post_id/comments(.:format)",
+      "path": "/posts/:post_id/comments",
       "requiredParams": ["post_id", "id"],
       "methods": ["GET"]
     }

@@ -2,7 +2,8 @@ import { expect } from 'chai';
 import nopathRoutes, { errors as nopathErrors } from './routes/noPath.json';
 import emptypathRoutes, { errors as emptypathErrors } from './routes/emptyPath.json';
 import nonStringpathRoutes, { errors as nonStringpathErrors } from './routes/nonStringPath.json';
-import missigParamsInpathRoutes, { errors as missigParamsInpathErrors } from './routes/missigParamsInPath.json';
+import missigRequiredParamsInpathRoutes, { errors as missigRequiredParamsInpathErrors } from './routes/missigRequiredParamsInPath.json';
+import missigOptionalParamsInpathRoutes, { errors as missigOptionalParamsInpathErrors } from './routes/missigOptionalParamsInPath.json';
 
 describe('routes with path errors', () => {
   const itBehavesLikepathErrorRoute = (routes, errors, expectedName) => {
@@ -25,6 +26,10 @@ describe('routes with path errors', () => {
   });
 
   it('path has include all required params', () => {
-    itBehavesLikepathErrorRoute(missigParamsInpathRoutes, missigParamsInpathErrors, 'missingParams');
+    itBehavesLikepathErrorRoute(missigRequiredParamsInpathRoutes, missigRequiredParamsInpathErrors, 'missingParams');
+  });
+
+  it('path has include all optional params', () => {
+    itBehavesLikepathErrorRoute(missigOptionalParamsInpathRoutes, missigOptionalParamsInpathErrors, 'missingParams');
   });
 });

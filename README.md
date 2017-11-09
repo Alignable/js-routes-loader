@@ -23,12 +23,11 @@ Suppose we have the following routes file:
   "routes": [
     {
       "name": "starships",
-      "path": "/posts(.:format)",
-      "requiredParams": []
+      "path": "/posts"
     },
     {
       "name": "starship",
-      "path": "/starships/:id(.:format)",
+      "path": "/starships/:id",
       "requiredParams": ["id"]
     }
   ]
@@ -74,24 +73,28 @@ Its routes file might look like this:
       "name": "starships",
       "path": "/starships(.:format)",
       "requiredParams": [],
+      "optionalParams": ["format"],
       "methods": ['GET', 'POST']
     },
     {
       "name": "starship",
       "path": "/starships/:id(.:format)",
       "requiredParams": ["id"],
+      "optionalParams": ["format"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     },
     {
       "name": "starshipCrewMembers",
       "path": "/starships/:starship_id/crew_members(.:format)",
       "requiredParams": ["starship_id"],
+      "optionalParams": ["format"],
       "methods": ["GET", "POST"]
     },
     {
       "name": "starshipCrewMember",
       "path": "/starships/:starship_id/crew_members/:id(.:format)",
       "requiredParams": ["starship_id", "id"],
+      "optionalParams": ["format"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     },
     // more routes
@@ -105,7 +108,8 @@ Each route objects has the following for properties:
 |--------|:---:|-----------|:------:|
 |**name**|`String`| The name of the route. Must be a valid javascript function name and unique. | Yes |
 |**path**|`String`| The 'spec' of the routes path. Required parameters should be encoded as `:param`. | Yes |
-|**requiredParams** |`Array`| A list of required parameters that appear in `path`. | Yes |
+|**requiredParams** |`Array`| A list of required parameters that appear in `path`. | No |
+|**optionalParams** |`Array`| A list of optional parameters that appear in `path`. | No |
 |**methods** |`Array`| A list of http methods that the route supports. | No |
  
 In production the routes json file will typically be created by exporting the routes from your backend application.  
@@ -139,23 +143,24 @@ routes.starshipCrewMember('enterprise', 12).path; // '/starships/enterprise/crew
 ```
 
 #### `options`
-Each route method takes an optional map of options than affect the path the route generates
+Each route method takes an optional map of options than affect the path the route generates.
 
-#### `options[params]`
+#### `options[optionalParams]`
 
-Additional query string parameters can be passed to the route and will be appended to the path.
+Parameters who's keys match entries in the route's `optionalParams` array will be appended replaced in the path.
+
+Example: The path to the crew member with `id=12` on the starship `enterprise` in json format would be:
+```js
+routes.starshipCrewMember('enterprise', 12, { format: 'json' }).path; // '/starships/enterprise/crewMembers/12.json'
+```
+
+#### `options[queryParams]`
+
+Any query string parameters can be passed to the route and will be appended to the path.
 
 Example: The path to search for 'federation' starships in the 'constitution' class would be:
 ```js
 routes.starships({ affiliation: 'federation', class: 'constitution'}).path; // '/starships?affiliation=federation&class=constitution'
-```
-
-#### `options[format]`
-The `format` option is special and will be appended to the path before the query string parameters.
-
-Example: The list of all 'federation' starships returned in json format:
-```js
-routes.starships({ affiliation: 'federation', format: 'json'}).path; // '/starships.json?affiliation=federation'
 ```
 
 #### `options[anchor]`

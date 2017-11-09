@@ -2,8 +2,7 @@
   "routes": [
     {
       "name": "starships",
-      "path": "/starships(.:format)",
-      "requiredParams": [],
+      "path": "/starships",
       "methods": ["GET", "POST"]
     }
   ]

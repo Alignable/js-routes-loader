@@ -2,8 +2,7 @@
   "routes": [
     {
       "name": true,
-      "path": "/nonStringName(.:format)",
-      "methods": ["GET"]
+      "path": "/nonStringName"
     }
   ]
 }

@@ -15,11 +15,7 @@ describe('multi parameter routes', () => {
       expect(routes.starshipCrewMember('enterprise', 12, {}).path).to.eq('/starships/enterprise/crew_members/12');
     });
 
-    it('returns the route with format', () => {
-      expect(routes.starshipCrewMember('enterprise', 12, { format: 'json' }).path).to.equal('/starships/enterprise/crew_members/12.json');
-    });
-
-    it('returns the route with options', () => {
+    it('returns the route with query string', () => {
       expect(routes.starshipCrewMember('enterprise', 12, {
         spaceLogs: true,
         details: 'full',
@@ -30,13 +26,12 @@ describe('multi parameter routes', () => {
       expect(routes.starshipCrewMember('enterprise', 12, { anchor: 'personal life' }).path).to.equal('/starships/enterprise/crew_members/12#personal%20life');
     });
 
-    it('returns the route with format, options and anchor', () => {
+    it('returns the route with format, query string and anchor', () => {
       expect(routes.starshipCrewMember('enterprise', 12, {
-        format: 'json',
         spaceLogs: true,
         details: 'full',
         anchor: 'personal life',
-      }).path).to.equal('/starships/enterprise/crew_members/12.json?spaceLogs=true&details=full#personal%20life');
+      }).path).to.equal('/starships/enterprise/crew_members/12?spaceLogs=true&details=full#personal%20life');
     });
 
     it('throws if called without enough params', () => {
@@ -44,7 +39,7 @@ describe('multi parameter routes', () => {
     });
 
     it('throws if called options instead of required params', () => {
-      expect(() => routes.starshipCrewMember('enterprise', { format: 'js' })).to.throw(Error);
+      expect(() => routes.starshipCrewMember('enterprise', { spaceLogs: true })).to.throw(Error);
     });
 
     it('throws if called with too many required params', () => {
@@ -52,7 +47,7 @@ describe('multi parameter routes', () => {
     });
 
     it('throws if called with too many required params and otions', () => {
-      expect(() => routes.starshipCrewMember('enterprise', 12, 56, { format: 'json' })).to.throw(Error);
+      expect(() => routes.starshipCrewMember('enterprise', 12, 56, { spaceLogs: true })).to.throw(Error);
     });
   });
 

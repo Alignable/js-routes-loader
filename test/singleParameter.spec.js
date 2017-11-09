@@ -15,11 +15,7 @@ describe('single paramter routes', () => {
       expect(routes.starship('enterprise', {}).path).to.eq('/starship/enterprise');
     });
 
-    it('returns the route with format', () => {
-      expect(routes.starship('enterprise', { format: 'json' }).path).to.equal('/starship/enterprise.json');
-    });
-
-    it('returns the route with options', () => {
+    it('returns the route with query string', () => {
       expect(routes.starship('enterprise', {
         crew: true,
         history: false,
@@ -30,13 +26,12 @@ describe('single paramter routes', () => {
       expect(routes.starship('enterprise', { anchor: 'launch date' }).path).to.equal('/starship/enterprise#launch%20date');
     });
 
-    it('returns the route with format, options and anchor', () => {
+    it('returns the route with format, query string and anchor', () => {
       expect(routes.starship('enterprise', {
-        format: 'json',
         crew: true,
         history: false,
         anchor: 'launch date',
-      }).path).to.equal('/starship/enterprise.json?crew=true&history=false#launch%20date');
+      }).path).to.equal('/starship/enterprise?crew=true&history=false#launch%20date');
     });
 
     it('throws if called without enough params', () => {
@@ -51,7 +46,7 @@ describe('single paramter routes', () => {
       expect(() => routes.starship('enterprise', 12)).to.throw(Error);
     });
 
-    it('throws if called with too many required params and otions', () => {
+    it('throws if called with too many required params and options', () => {
       expect(() => routes.starship('enterprise', 12, { format: 'json' })).to.throw(Error);
     });
   });

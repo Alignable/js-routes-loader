@@ -15,11 +15,7 @@ describe('no paramter routes', () => {
       expect(routes.starships({}).path).to.eq('/starships');
     });
 
-    it('returns the route with format', () => {
-      expect(routes.starships({ format: 'json' }).path).to.equal('/starships.json');
-    });
-
-    it('returns the route with options', () => {
+    it('returns the route with query string', () => {
       expect(routes.starships({
         class: 'constitution',
         affiliation: 'federation',
@@ -30,12 +26,11 @@ describe('no paramter routes', () => {
       expect(routes.starships({ anchor: 'bird of prey' }).path).to.equal('/starships#bird%20of%20prey');
     });
 
-    it('returns the route with format, options and anchor', () => {
+    it('returns the route with query string and anchor', () => {
       expect(routes.starships({
-        format: 'json',
         affiliation: 'klingon',
         anchor: 'bird of prey',
-      }).path).to.equal('/starships.json?affiliation=klingon#bird%20of%20prey');
+      }).path).to.equal('/starships?affiliation=klingon#bird%20of%20prey');
     });
 
     it('throws if called with too many required params', () => {
@@ -43,7 +38,7 @@ describe('no paramter routes', () => {
     });
 
     it('throws if called with too many required params and otions', () => {
-      expect(() => routes.starships('enterprise', { format: 'json' })).to.throw(Error);
+      expect(() => routes.starships('enterprise', { affiliation: 'klingon' })).to.throw(Error);
     });
   });
 

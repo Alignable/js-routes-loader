@@ -1,18 +1,25 @@
 {
   "routes": [
     {
+      "name": "noMethods",
+      "path": "/noMethods",
+      "requiredParams": [],
+      "optionalParams": []
+    },
+    {
       "name": "noParams",
-      "path": "/noParams(.:format)",
+      "path": "/noParams",
       "methods": ["GET"]
     },
     {
-      "name": "noMethods",
-      "path": "/noMethods(.:format)",
-      "requiredParams": []
+      "name": "noRequiredParams",
+      "path": "/noRequiredParams",
+      "optionalParams": [],
+      "methods": ["GET"]
     },
     {
-      "name": "noFormat",
-      "path": "/noFormat",
+      "name": "noOptionalParams",
+      "path": "/noOptionalParams",
       "requiredParams": [],
       "methods": ["GET"]
     }

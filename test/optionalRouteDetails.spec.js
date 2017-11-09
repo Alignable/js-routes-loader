@@ -11,7 +11,11 @@ describe('optional route details', () => {
     expect(routes.noMethods().methods).to.deep.equal([]);
   });
 
-  it('foramt is optional', () => {
-    expect(routes.noFormat({ format: 'js' }).path).to.equal('/noFormat');
+  it('noRequiredParams is optional', () => {
+    expect(routes.noRequiredParams().path).to.equal('/noRequiredParams');
+  });
+
+  it('optionalParams is optional', () => {
+    expect(routes.noOptionalParams().path).to.equal('/noOptionalParams');
   });
 });

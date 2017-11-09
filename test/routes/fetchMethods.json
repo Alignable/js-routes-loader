@@ -2,43 +2,43 @@
   "routes": [
     {
       "name": "getMe",
-      "path": "/get/:id/me(.:format)",
+      "path": "/get/:id/me",
       "requiredParams": ["id"],
       "methods": ["GET"]
     },
     {
       "name": "postMe",
-      "path": "/post/:id/me(.:format)",
+      "path": "/post/:id/me",
       "requiredParams": ["id"],
       "methods": ["POST"]
     },
     {
       "name": "putMe",
-      "path": "/put/:id/me(.:format)",
+      "path": "/put/:id/me",
       "requiredParams": ["id"],
       "methods": ["PUT"]
     },
     {
       "name": "patchMe",
-      "path": "/patch/:id/me(.:format)",
+      "path": "/patch/:id/me",
       "requiredParams": ["id"],
       "methods": ["PATCH"]
     },
     {
       "name": "deleteMe",
-      "path": "/delete/:id/me(.:format)",
+      "path": "/delete/:id/me",
       "requiredParams": ["id"],
       "methods": ["DELETE"]
     },
     {
       "name": "lowerMe",
-      "path": "/delete/:id/me(.:format)",
+      "path": "/delete/:id/me",
       "requiredParams": ["id"],
       "methods": ["get", "post", "put", "patch", "delete"]
     },
     {
       "name": "allMethods",
-      "path": "/all/:id/methods(.:format)",
+      "path": "/all/:id/methods",
       "requiredParams": ["id"]
     }
   ]

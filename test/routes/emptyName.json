@@ -2,7 +2,7 @@
   "routes": [
     {
       "name": "",
-      "path": "/emptyName(.:format)",
+      "path": "/emptyName",
       "methods": ["GET"]
     }
   ]
