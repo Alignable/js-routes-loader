@@ -30,29 +30,29 @@
     },
     {
       "name": "starshipCrewMembers",
-      "path": "/starships/:starship_id/crew_members(.:format)",
-      "requiredParams": ["starship_id"],
+      "path": "/starships/:starshipId/crew_members(.:format)",
+      "requiredParams": ["starshipId"],
       "optionalParams": ["format"],
       "methods": ["GET", "POST"]
     },
     {
       "name": "newStarshipCrewMember",
-      "path": "/starship/:starship_id/crew_members/new(.:format)",
-      "requiredParams": ["starship_id"],
+      "path": "/starship/:starshipId/crew_members/new(.:format)",
+      "requiredParams": ["starshipId"],
       "optionalParams": ["format"],
       "methods": ["GET"]
     },
     {
       "name": "editStarshipCrewMember",
-      "path": "/starship/:starship_id/crew_members/:id/edit(.:format)",
-      "requiredParams": ["starship_id", "id"],
+      "path": "/starship/:starshipId/crew_members/:id/edit(.:format)",
+      "requiredParams": ["starshipId", "id"],
       "optionalParams": ["format"],
       "methods": ["GET"]
     },
     {
       "name": "starshipCrewMember",
-      "path": "/starship/:starship_id/crew_members/:id(.:format)",
-      "requiredParams": ["starship_id", "id"],
+      "path": "/starship/:starshipId/crew_members/:id(.:format)",
+      "requiredParams": ["starshipId", "id"],
       "optionalParams": ["format"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     },

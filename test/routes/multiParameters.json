@@ -2,8 +2,8 @@
   "routes": [
     {
       "name": "starshipCrewMember",
-      "path": "/starships/:starship_id/crew_members/:id",
-      "requiredParams": ["starship_id", "id"],
+      "path": "/starships/:starshipId/crew_members/:id",
+      "requiredParams": ["starshipId", "id"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     }
   ]
