@@ -1,45 +1,45 @@
 {
   "routes": [
     {
-      "name": "getMe",
+      "name": "get_me",
       "path": "/get/:id/me",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["GET"]
     },
     {
-      "name": "postMe",
+      "name": "post_me",
       "path": "/post/:id/me",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["POST"]
     },
     {
-      "name": "putMe",
+      "name": "put_me",
       "path": "/put/:id/me",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["PUT"]
     },
     {
-      "name": "patchMe",
+      "name": "patch_me",
       "path": "/patch/:id/me",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["PATCH"]
     },
     {
-      "name": "deleteMe",
+      "name": "delete_me",
       "path": "/delete/:id/me",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["DELETE"]
     },
     {
-      "name": "lowerMe",
+      "name": "lower_me",
       "path": "/delete/:id/me",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["get", "post", "put", "patch", "delete"]
     },
     {
-      "name": "allMethods",
+      "name": "all_methods",
       "path": "/all/:id/methods",
-      "requiredParams": ["id"]
+      "required_params": ["id"]
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import routes from './routes/singleParameter.json';
+import routes, { errors } from './routes/singleParameter.json';
 
 describe('single paramter routes', () => {
   describe('path', () => {
@@ -54,6 +54,12 @@ describe('single paramter routes', () => {
   describe('methods', () => {
     it('returns the supported methods', () => {
       expect(routes.starship('enterprise').methods).to.deep.eq(['GET', 'PUT', 'PATCH', 'DELETE']);
+    });
+  });
+
+  describe('errors', () => {
+    it('should be empty', () => {
+      expect(errors).to.deep.eq([]);
     });
   });
 });

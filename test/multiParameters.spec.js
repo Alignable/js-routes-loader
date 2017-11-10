@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import routes from './routes/multiParameters.json';
+import routes, { errors } from './routes/multiParameters.json';
 
 describe('multi parameter routes', () => {
   describe('path', () => {
@@ -54,6 +54,12 @@ describe('multi parameter routes', () => {
   describe('methods', () => {
     it('returns the supported methods', () => {
       expect(routes.starshipCrewMember('enterprise', 12).methods).to.deep.eq(['GET', 'PUT', 'PATCH', 'DELETE']);
+    });
+  });
+
+  describe('errors', () => {
+    it('should be empty', () => {
+      expect(errors).to.deep.eq([]);
     });
   });
 });

@@ -3,7 +3,7 @@ import { buildPath } from './PathBuilder';
 class Route {
   constructor(path, params, requiredParams, optionalParams, opts, methods) {
     this.path = buildPath(path, params, requiredParams, optionalParams, opts);
-    this.methods = (methods && methods.map(method => method.toUpperCase()));
+    this.methods = methods;
   }
 
   get(options) {

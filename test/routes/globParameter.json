@@ -3,7 +3,7 @@
     {
       "name": "logs",
       "path": "/logs/*date",
-      "requiredParams": ["date"],
+      "required_params": ["date"],
       "methods": ["GET"]
     }
   ]

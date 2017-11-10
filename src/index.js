@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 import loaderUtils from 'loader-utils';
-import { matchesRequiredParam, matchesOptionalParam } from './PathBuilder';
+import { matchesRequiredParam, matchesOptionalParam, requiredParamRegex } from './PathBuilder';
 
 const quoteArgs = (args) => {
   const quoted = args ? args.map(param => `'${param}'`) : [];
@@ -29,6 +30,32 @@ const checkErrors = (route, name, path, requiredParams, optionalParams) => {
   return errors;
 };
 
+// Simple transform from snake_case to camelCase without pulling in some external lib
+const camelCase = str => str.replace(/_(.)/g, (match, c) => c.toUpperCase());
+
+const transformRoute = (route) => {
+  // json format from Rails is typically snake_case.
+  // javascript land wants camelCase so transform the name, params and path
+  const { name, path, required_params, optional_params, methods } = route;
+
+  const allParams = [...(required_params || []), ...(optional_params || [])];
+
+  const replacedPath = allParams.reduce((replaced, param) => {
+    const regex = requiredParamRegex(param);
+    const replacement = `$1${camelCase(param)}`;
+    return replaced.replace(regex, replacement);
+  }, path);
+
+  const trasnformedRoute = {
+    name: (typeof name === 'string') && camelCase(name),
+    path: replacedPath,
+    requiredParams: required_params && required_params.map(camelCase),
+    optionalParams: optional_params && optional_params.map(camelCase),
+    methods: methods && methods.map(method => method.toUpperCase()),
+  };
+  return trasnformedRoute;
+};
+
 function RoutesLoader(source) {
   this.cacheable();
 
@@ -38,7 +65,8 @@ function RoutesLoader(source) {
   const errors = [];
 
   parseSource.routes.forEach((route) => {
-    const { name, path, requiredParams, optionalParams, methods } = route;
+    const t = transformRoute(route);
+    const { name, path, requiredParams, optionalParams, methods } = t;
 
     const routeErrors = checkErrors(route, name, path, requiredParams, optionalParams);
     if (routeErrors.length > 0) {

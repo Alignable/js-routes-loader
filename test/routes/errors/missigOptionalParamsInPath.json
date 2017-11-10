@@ -3,8 +3,8 @@
     {
       "name": "missingParams",
       "path": "/starthips/:id",
-      "requiredParams": ["id"],
-      "optionalParams": ["format"],
+      "required_params": ["id"],
+      "optional_params": ["format"],
       "methods": ["GET"]
     }
   ]

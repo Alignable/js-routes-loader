@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import routes from './routes/globParameter.json';
+import routes, { errors } from './routes/globParameter.json';
 
 describe('glob paramter routes', () => {
   describe('path', () => {
@@ -47,6 +47,12 @@ describe('glob paramter routes', () => {
   describe('methods', () => {
     it('returns the supported methods', () => {
       expect(routes.logs([2233, 3, 22]).methods).to.deep.eq(['GET']);
+    });
+  });
+
+  describe('errors', () => {
+    it('should be empty', () => {
+      expect(errors).to.deep.eq([]);
     });
   });
 });

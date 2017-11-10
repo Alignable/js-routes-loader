@@ -12,7 +12,7 @@ const globParamReplace = (value, isGlob) => {
   return value.join('/');
 };
 
-const requiredParamRegex = param => new RegExp(`[:\\*]${param}`);
+const requiredParamRegex = param => new RegExp(`([:\\*])${param}`);
 const requiredParamReplace = (value, isGlob) => globParamReplace(value, isGlob);
 
 const optionalParamRegex = param => new RegExp(`\\(([^\\(\\)].*)[:\\*]${param}([^\\(\\)]*)\\)`);
@@ -93,4 +93,4 @@ const buildPath = (pathSpec, params, requiredParams, optionalParams, opts) => {
   return path;
 };
 
-export { buildPath, matchesRequiredParam, matchesOptionalParam };
+export { buildPath, matchesRequiredParam, matchesOptionalParam, requiredParamRegex };

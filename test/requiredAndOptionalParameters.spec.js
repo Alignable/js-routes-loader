@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import routes from './routes/requiredAndOptionalParameters.json';
+import routes, { errors } from './routes/requiredAndOptionalParameters.json';
 
 describe('required and optional paramter routes', () => {
   describe('path', () => {
@@ -46,6 +46,12 @@ describe('required and optional paramter routes', () => {
   describe('methods', () => {
     it('returns the supported methods', () => {
       expect(routes.starshipLogs(2233).methods).to.deep.eq(['GET', 'PUT', 'PATCH', 'DELETE']);
+    });
+  });
+
+  describe('errors', () => {
+    it('should be empty', () => {
+      expect(errors).to.deep.eq([]);
     });
   });
 });

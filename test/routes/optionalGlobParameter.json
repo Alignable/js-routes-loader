@@ -3,7 +3,7 @@
     {
       "name": "logs",
       "path": "/logs(/*date)",
-      "optionalParams": ["date"],
+      "optional_params": ["date"],
       "methods": ["GET"]
     }
   ]

@@ -1,10 +1,10 @@
 {
   "routes": [
     {
-      "name": "starshipLogs",
+      "name": "starship_logs",
       "path": "(/starship/:id)/logs(/year/:year)(/month/:month)(/day/:day)",
-      "requiredParams": [],
-      "optionalParams": ["id", "year", "month", "day"],
+      "required_params": [],
+      "optional_params": ["id", "year", "month", "day"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     }
   ]

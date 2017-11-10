@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import routes from './routes/noParameters.json';
+import routes, { errors } from './routes/noParameters.json';
 
 describe('no paramter routes', () => {
   describe('path', () => {
@@ -45,6 +45,12 @@ describe('no paramter routes', () => {
   describe('methods', () => {
     it('returns the supported methods', () => {
       expect(routes.starships().methods).to.deep.eq(['GET', 'POST']);
+    });
+  });
+
+  describe('errors', () => {
+    it('should be empty', () => {
+      expect(errors).to.deep.eq([]);
     });
   });
 });

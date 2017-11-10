@@ -3,7 +3,7 @@
     {
       "name": "starship",
       "path": "/starship/:id",
-      "requiredParams": ["id"],
+      "required_params": ["id"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     }
   ]

@@ -1,15 +1,15 @@
 {
   "routes": [
     {
-      "name": "starshipLogs",
+      "name": "starship_logs",
       "path": "/starships/:id/logs/*date",
-      "requiredParams": ["id", "date"],
+      "required_params": ["id", "date"],
       "methods": ["GET"]
     },
     {
       "name": "logs",
       "path": "/logs/*date/:type",
-      "requiredParams": ["date", "type"],
+      "required_params": ["date", "type"],
       "methods": ["GET"]
     }
   ]

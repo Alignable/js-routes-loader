@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import routes from './routes/globAndRequiredParameters.json';
+import routes, { errors } from './routes/globAndRequiredParameters.json';
 
 describe('optional glob and required paramters routes', () => {
   describe('glob before required paramters ', () => {
@@ -99,6 +99,12 @@ describe('optional glob and required paramters routes', () => {
       it('returns the supported methods', () => {
         expect(routes.starshipLogs('enterprise', [2233, 3, 22]).methods).to.deep.eq(['GET']);
       });
+    });
+  });
+
+  describe('errors', () => {
+    it('should be empty', () => {
+      expect(errors).to.deep.eq([]);
     });
   });
 });

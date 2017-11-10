@@ -28,7 +28,7 @@ Suppose we have the following routes file:
     {
       "name": "starship",
       "path": "/starships/:id",
-      "requiredParams": ["id"]
+      "required_params": ["id"]
     }
   ]
 }
@@ -72,29 +72,29 @@ Its routes file might look like this:
     {
       "name": "starships",
       "path": "/starships(.:format)",
-      "requiredParams": [],
-      "optionalParams": ["format"],
+      "required_params": [],
+      "optional_params": ["format"],
       "methods": ['GET', 'POST']
     },
     {
       "name": "starship",
       "path": "/starships/:id(.:format)",
-      "requiredParams": ["id"],
-      "optionalParams": ["format"],
+      "required_params": ["id"],
+      "optional_params": ["format"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     },
     {
       "name": "starshipCrewMembers",
       "path": "/starships/:starship_id/crew_members(.:format)",
-      "requiredParams": ["starship_id"],
-      "optionalParams": ["format"],
+      "required_params": ["starship_id"],
+      "optional_params": ["format"],
       "methods": ["GET", "POST"]
     },
     {
       "name": "starshipCrewMember",
       "path": "/starships/:starship_id/crew_members/:id(.:format)",
-      "requiredParams": ["starship_id", "id"],
-      "optionalParams": ["format"],
+      "required_params": ["starship_id", "id"],
+      "optional_params": ["format"],
       "methods": ["GET", "PUT", "PATCH", "DELETE"]
     },
     // more routes
@@ -108,8 +108,8 @@ Each route objects has the following for properties:
 |--------|:---:|-----------|:------:|
 |**name**|`String`| The name of the route. Must be a valid javascript function name and unique. | Yes |
 |**path**|`String`| The 'spec' of the routes path. Required parameters should be encoded as `:param`. | Yes |
-|**requiredParams** |`Array`| A list of required parameters that appear in `path`. | No |
-|**optionalParams** |`Array`| A list of optional parameters that appear in `path`. | No |
+|**required_params** |`Array`| A list of required parameters that appear in `path`. | No |
+|**optional_params** |`Array`| A list of optional parameters that appear in `path`. | No |
 |**methods** |`Array`| A list of http methods that the route supports. | No |
  
 In production the routes json file will typically be created by exporting the routes from your backend application.  
@@ -145,9 +145,9 @@ routes.starshipCrewMember('enterprise', 12).path; // '/starships/enterprise/crew
 #### `options`
 Each route method takes an optional map of options than affect the path the route generates.
 
-#### `options[optionalParams]`
+#### `options[optional_params]`
 
-Parameters who's keys match entries in the route's `optionalParams` array will be appended replaced in the path.
+Parameters who's keys match entries in the route's `optional_params` array will be appended replaced in the path.
 
 Example: The path to the crew member with `id=12` on the starship `enterprise` in json format would be:
 ```js
@@ -199,7 +199,7 @@ const readyAwayParty = async () => {
   const response = await routes.starshipCrewMembers('enterprise', { rank: 'ensign', shirt: 'red' });
   const ensigns = await response.json();
   const firstEnsign = ensigns[0];
-  await routes.starshipCrewMember('enterprise',firstEnsign.id).patch( {status: 'away', phasers: 'stun'});
+  await routes.starshipCrewMember('enterprise', firstEnsign.id).patch( {status: 'away', phasers: 'stun'});
   return firstEnsign;
 };
 

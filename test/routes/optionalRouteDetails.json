@@ -1,26 +1,26 @@
 {
   "routes": [
     {
-      "name": "noMethods",
-      "path": "/noMethods",
-      "requiredParams": [],
-      "optionalParams": []
+      "name": "no_methods",
+      "path": "/no_methods",
+      "required_params": [],
+      "optional_params": []
     },
     {
-      "name": "noParams",
-      "path": "/noParams",
+      "name": "no_params",
+      "path": "/no_params",
       "methods": ["GET"]
     },
     {
-      "name": "noRequiredParams",
-      "path": "/noRequiredParams",
-      "optionalParams": [],
+      "name": "no_required_params",
+      "path": "/no_required_params",
+      "optional_params": [],
       "methods": ["GET"]
     },
     {
-      "name": "noOptionalParams",
-      "path": "/noOptionalParams",
-      "requiredParams": [],
+      "name": "no_optional_params",
+      "path": "/no_optional_params",
+      "required_params": [],
       "methods": ["GET"]
     }
   ]
