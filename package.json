@@ -14,8 +14,8 @@
     "coverage": "cross-env NODE_ENV=test nyc npm run test",
     "security": "nsp check",
     "travis:lint": "npm run lint && npm run security",
-    "travis:test": "npm run test -- --runInBand",
-    "travis:coverage": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test -- --runInBand",
+    "travis:test": "npm run test",
+    "travis:coverage": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test ",
     "prerelease": "npm run build",
     "release": "git add -f lib/ && standard-version -a"
   },
