@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/Alignable/js-routes-loader/compare/v0.4.2...v0.5.0) (2017-11-22)
+
+
+### Features
+
+* fetch option ([9e9ed6f](https://github.com/Alignable/js-routes-loader/commit/9e9ed6f))
+
+
+
 <a name="0.4.2"></a>
 ## [0.4.2](https://github.com/Alignable/js-routes-loader/compare/v0.4.1...v0.4.2) (2017-11-12)
 
