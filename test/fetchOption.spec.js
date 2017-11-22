@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved,import/no-webpack-loader-syntax */
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';

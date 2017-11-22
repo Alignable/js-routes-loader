@@ -31,7 +31,7 @@ class Route {
     if (this.methods.length > 0 && !this.methods.includes(method)) {
       throw new Error(`Method '${method} is not supported. Supported methods are: [${this.methods}]`);
     }
-    return this.fetchWrapper(this.path, Object.assign({method}, options));
+    return this.fetchWrapper(this.path, Object.assign({ method }, options));
   }
 }
 
