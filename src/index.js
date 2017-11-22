@@ -86,14 +86,22 @@ function RoutesLoader(source) {
     ${requiredParamsQuotedArgs},
     ${optionalParamsQuotedArgs},
     options,
-    ${methodsQuotedArgs}
+    ${methodsQuotedArgs},
+    fetchWrapper
   ),`);
   });
 
-  const routePath = loaderUtils.stringifyRequest(this, `!${require.resolve('./Route.js')}`);
+  const options = Object.assign(
+    {},
+    { fetch: './simpleFetch' },
+    loaderUtils.getOptions(this));
+
+  const routePath = loaderUtils.stringifyRequest(this, `${require.resolve('./Route.js')}`);
+  const fetchWrapperPath = loaderUtils.stringifyRequest(this, `!${require.resolve(options.fetch)}`);
 
   const loader =
-`import Route from ${routePath}
+`import Route from ${routePath};
+import fetchWrapper from ${fetchWrapperPath};
     
 const errors = [
 ${errors.join('\n')}

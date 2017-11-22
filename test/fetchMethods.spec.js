@@ -12,7 +12,7 @@ describe('fetch methods', () => {
 
   beforeEach(() => {
     fetchSpy = sinon.spy();
-    global.window = { fetch: fetchSpy };
+    global.fetch = fetchSpy;
   });
 
   describe('get', () => {

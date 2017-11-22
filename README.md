@@ -51,7 +51,7 @@ module.exports = {
 
 **index.js**
 ```js
-const routes = require('/routes/starships.json');
+const routes = require('./routes/starships.json');
 
 routes.starships();             // '/starships'
 routes.starships('enterprise'); // '/starships/enterprise'
@@ -210,7 +210,7 @@ exploreStrangeNewWorld(readyAwayParty())
   })
   .catch((lostCrew) => {
     console.log("He's dead Jim");
-    lostCrew.forEach((crew) => routes.starshipCrewMember('enterprise',crew.id).destroy());
+    lostCrew.forEach((crew) => routes.starshipCrewMember('enterprise', crew.id).destroy());
   });
 ```
 
@@ -218,6 +218,56 @@ More information on using the fetch API can be found in the [Using Fetch](https:
 
 If you are using Routes Loader in browsers without fetch support make sure to include the [Fetch polyfil](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) in you webpack.
 
+### Adding your own `fetch` handler
+
+By default `js-routes-loader` uses a thin wrapper around `fetch`.
+However, you might want to supply your own featch wrapper to adjust the behavior.
+For example, suppose all your requests are going to be json and you want to set json headers and always parse the response as json.
+You would define a fetch wrapper like this:
+
+**jsonFetchWrapper.js**
+```js
+const jsonFetch = (path, options) => {
+  const jsonOptions = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  };
+
+  return fetch(path, Object.assign(jsonOptions, options))
+    .then((response) => response.json());
+}
+
+export default jsonFetch;
+```
+
+Now either configure `js-routes-loader` to use your fetch handler for all files:
+
+**webpack.config.js**
+```js
+module.exports = {
+  module: {
+    loaders: [
+      {
+        test: /routes/.*\.json$/,
+        use: [{
+          loader: 'js-routes-loader',
+          options: {
+            fetch: require.resolve('./jsonFetchWrapper'),
+          },
+        }],
+      },
+    ],
+  },
+};
+```
+
+or configure the fetch hanlder via a query parameter in the require statement:
+
+```js
+const routes = require('!!js-routes-loader?fetch=./jsonFetchWrapper!./routes/starships.json');
+```
 
 [npm]: https://img.shields.io/npm/v/js-routes-loader.svg
 [npm-url]: https://npmjs.com/package/js-routes-loader

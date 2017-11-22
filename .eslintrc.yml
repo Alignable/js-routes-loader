@@ -6,4 +6,4 @@ extends:
   webpack
 
 globals:
-  window: true
+  fetch: true

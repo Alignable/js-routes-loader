@@ -1,9 +1,10 @@
 import { buildPath } from './PathBuilder';
 
 class Route {
-  constructor(path, params, requiredParams, optionalParams, opts, methods) {
+  constructor(path, params, requiredParams, optionalParams, opts, methods, fetchWrapper) {
     this.path = buildPath(path, params, requiredParams, optionalParams, opts);
     this.methods = methods;
+    this.fetchWrapper = fetchWrapper;
   }
 
   get(options) {
@@ -30,7 +31,7 @@ class Route {
     if (this.methods.length > 0 && !this.methods.includes(method)) {
       throw new Error(`Method '${method} is not supported. Supported methods are: [${this.methods}]`);
     }
-    return window.fetch(this.path, Object.assign({ method }, options));
+    return this.fetchWrapper(this.path, Object.assign({method}, options));
   }
 }
 
