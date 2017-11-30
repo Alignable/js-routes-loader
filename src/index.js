@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import loaderUtils from 'loader-utils';
 import { matchesRequiredParam, matchesOptionalParam, requiredParamRegex } from './PathBuilder';
+import FetchWrapper from './FetchWrapper';
 
 const quoteArgs = (args) => {
   const quoted = args ? args.map(param => `'${param}'`) : [];
@@ -80,14 +81,9 @@ function RoutesLoader(source) {
     const optionalParamsQuotedArgs = quoteArgs(optionalParams);
     const methodsQuotedArgs = quoteArgs(methods);
 
-    routes.push(`  ${name}: (${requiredParamsDelimited}${options}) => new Route(
-    '${path}',
-    [${requiredParamsDelimited}],
-    ${requiredParamsQuotedArgs},
-    ${optionalParamsQuotedArgs},
-    options,
-    ${methodsQuotedArgs},
-    fetchWrapper
+    routes.push(`  ${name}: (${requiredParamsDelimited}${options}) => fetchWrapper(
+    buildPath('${path}', [${requiredParamsDelimited}], ${requiredParamsQuotedArgs}, ${optionalParamsQuotedArgs}, options),
+    ${methodsQuotedArgs}
   ),`);
   });
 
@@ -96,11 +92,11 @@ function RoutesLoader(source) {
     { fetch: './simpleFetch' },
     loaderUtils.getOptions(this));
 
-  const routePath = loaderUtils.stringifyRequest(this, `${require.resolve('./Route.js')}`);
+  const pathBuilderPath = loaderUtils.stringifyRequest(this, `${require.resolve('./PathBuilder.js')}`);
   const fetchWrapperPath = loaderUtils.stringifyRequest(this, `!${require.resolve(options.fetch)}`);
 
   const loader =
-`import Route from ${routePath};
+`import { buildPath } from ${pathBuilderPath};
 import fetchWrapper from ${fetchWrapperPath};
     
 const errors = [
@@ -117,4 +113,4 @@ export { errors, routes as default };
   return loader;
 }
 
-export default RoutesLoader;
+export { RoutesLoader as default, FetchWrapper };

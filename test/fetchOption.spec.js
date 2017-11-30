@@ -2,7 +2,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import routes from '!!js-routes-loader?fetch=../test/extraWrapper!./routes/fetchMethods.json';
+import routes from '!!js-routes-loader?fetch=../test/ExtraOptionsFetch!./routes/fetchMethods.json';
 
 chai.use(sinonChai);
 const { expect } = chai;

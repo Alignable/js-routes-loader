@@ -116,16 +116,16 @@ In production the routes json file will typically be created by exporting the ro
 
 ### Routes Javascript API
 
-The js-routes-loader converts each route specified in the json file into a javascript function that returns a Route object.
+The js-routes-loader converts each route specified in the json file into a javascript function that returns a wrapper around fetch object.
 
 Importing the startships.json file above results is equivalent to four functions with the following signature:
 
 ```js
 const routes = {
-  starships: (options = {}) => new Route(....),
-  starship: (id, options = {}) => new Route(....),
-  starshipCrewMembers: (starthip_id, options = {}) => new Route(....),
-  starshipCrewMember: (starthip_id, id, options = {}) => new Route(....),
+  starships: (options = {}) => fatchWrapper(....),
+  starship: (id, options = {}) => fatchWrapper(....),
+  starshipCrewMembers: (starthip_id, options = {}) => fatchWrapper(....),
+  starshipCrewMember: (starthip_id, id, options = {}) => fatchWrapper(....),
 };
 ``` 
 
@@ -184,11 +184,12 @@ If the methods array is missing or empty it is assumed that all methods are supp
 ### `fetch` wrappers
 
 Having easy access to the applications paths is great but given a path you probably want to make some sort of request against that path.
-The `Route` object provides five methods, `go`, `post`, `put`, `patch` and `delete` that are thin wrappers around the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) for the equivalent http method.
+Be default `js-route-loader` ships with a simple wrapper around the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). The wrapper does two things. First it checks the route supports the http method you are trying to fetch.
+ Second it curries the path for the route into the call to fetch.
 
 Example:
 ```js
-routes.starshipCrewMember('enterprise').post({ body: JSON.stringify({ name: 'James T. Kirk', rank: 'Captain' }));
+routes.starshipCrewMember('enterprise').fetch({method: 'POST', body: JSON.stringify({ name: 'James T. Kirk', rank: 'Captain' }));
 // Equivalent to
 fetch('/starships/enterprise/crewMembers', {method: 'POST', body: JSON.stringify({ name: 'James T. Kirk', rank: 'Captain' }) });
 ``` 
@@ -196,10 +197,10 @@ fetch('/starships/enterprise/crewMembers', {method: 'POST', body: JSON.stringify
 You might combine these fetch methods like this:
 ```js
 const readyAwayParty = async () => {
-  const response = await routes.starshipCrewMembers('enterprise', { rank: 'ensign', shirt: 'red' });
+  const response = await routes.starshipCrewMembers('enterprise', { rank: 'ensign', shirt: 'red' }).fetch({method: 'GET'});
   const ensigns = await response.json();
   const firstEnsign = ensigns[0];
-  await routes.starshipCrewMember('enterprise', firstEnsign.id).patch( {status: 'away', phasers: 'stun'});
+  await routes.starshipCrewMember('enterprise', firstEnsign.id).patch( {status: 'away', phasers: 'stun'}).fetch({method: 'GET'});
   return firstEnsign;
 };
 
@@ -210,36 +211,41 @@ exploreStrangeNewWorld(readyAwayParty())
   })
   .catch((lostCrew) => {
     console.log("He's dead Jim");
-    lostCrew.forEach((crew) => routes.starshipCrewMember('enterprise', crew.id).destroy());
+    lostCrew.forEach((crew) => routes.starshipCrewMember('enterprise', crew.id).fetch({method: 'DELETE'}));
   });
 ```
 
 More information on using the fetch API can be found in the [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) documentation.
 
-If you are using Routes Loader in browsers without fetch support make sure to include the [Fetch polyfil](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) in you webpack.
+If you are using JS Routes Loader in browsers without fetch support make sure to include the [Fetch polyfil](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) in you webpack.
 
-### Adding your own `fetch` handler
+### Adding your own `fetch` Wrapper
 
 By default `js-routes-loader` uses a thin wrapper around `fetch`.
 However, you might want to supply your own featch wrapper to adjust the behavior.
 For example, suppose all your requests are going to be json and you want to set json headers and always parse the response as json.
-You would define a fetch wrapper like this:
+You would define a fetch wrapper like this by extending the FetchWrapper class:
 
-**jsonFetchWrapper.js**
+**JsonFetchWrapper.js**
 ```js
-const jsonFetch = (path, options) => {
-  const jsonOptions = {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
+import { FetchWrapper } from 'js-routes-loader';
 
-  return fetch(path, Object.assign(jsonOptions, options))
-    .then((response) => response.json());
+const jsonOptions = {
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+};
+
+class JsonFetchWrapper extends FetchWrapper {
+  fetch(options) {
+    this.checkMethod(options.method);
+    return fetch(this.path, Object.assign(jsonOptions, options))
+      .then((response) => response.json());
+  }
 }
 
-export default jsonFetch;
+export default (path, methods) => new JsonFetchWrapper(path, methods);
 ```
 
 Now either configure `js-routes-loader` to use your fetch handler for all files:
@@ -254,7 +260,7 @@ module.exports = {
         use: [{
           loader: 'js-routes-loader',
           options: {
-            fetch: require.resolve('./jsonFetchWrapper'),
+            fetch: require.resolve('./JsonFetchWrapper'),
           },
         }],
       },
@@ -266,7 +272,7 @@ module.exports = {
 or configure the fetch hanlder via a query parameter in the require statement:
 
 ```js
-const routes = require('!!js-routes-loader?fetch=./jsonFetchWrapper!./routes/starships.json');
+const routes = require('!!js-routes-loader?fetch=./JsonFetchWrapper!./routes/starships.json');
 ```
 
 [npm]: https://img.shields.io/npm/v/js-routes-loader.svg

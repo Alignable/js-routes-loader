@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/simpleFetch.js"],"names":["fetchWrapper","path","options","fetch"],"mappings":";;;;;AAAA,IAAMA,eAAe,SAAfA,YAAe,CAACC,IAAD,EAAOC,OAAP;AAAA,SAAmBC,MAAMF,IAAN,EAAYC,OAAZ,CAAnB;AAAA,CAArB;;kBAEeF,Y","file":"simpleFetch.js","sourcesContent":["const fetchWrapper = (path, options) => fetch(path, options);\n\nexport default fetchWrapper;\n"]}

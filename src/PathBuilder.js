@@ -93,4 +93,10 @@ const buildPath = (pathSpec, params, requiredParams, optionalParams, opts) => {
   return path;
 };
 
-export { buildPath, matchesRequiredParam, matchesOptionalParam, requiredParamRegex };
+const checkMethod = (method, methods) => {
+  if (methods.length > 0 && !methods.includes(method)) {
+    throw new Error(`Method '${method} is not supported. Supported methods are: [${methods}]`);
+  }
+};
+
+export { buildPath, matchesRequiredParam, matchesOptionalParam, requiredParamRegex, checkMethod };
