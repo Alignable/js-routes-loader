@@ -89,7 +89,7 @@ function RoutesLoader(source) {
 
   const options = Object.assign(
     {},
-    { fetch: './simpleFetch' },
+    { fetch: './SimpleFetch' },
     loaderUtils.getOptions(this));
 
   const pathBuilderPath = loaderUtils.stringifyRequest(this, `${require.resolve('./PathBuilder.js')}`);
