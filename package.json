@@ -1,6 +1,6 @@
 {
   "name": "js-routes-loader",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A webpack loader for parsing route definitions in json files and wrapping them with a simple javascript api.",
   "main": "lib/index.js",
   "files": [
