@@ -6,8 +6,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.json/,
-        use: 'js-routes-loader',
+        test: /\.json$/,
+        loader: 'js-routes-loader',
+        type: "javascript/auto",
       },
     ],
   },
