@@ -8,7 +8,7 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'js-routes-loader',
-        type: "javascript/auto",
+        type: 'javascript/auto',
       },
     ],
   },

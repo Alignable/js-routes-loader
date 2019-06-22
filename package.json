@@ -15,7 +15,7 @@
     "test": "mochapack --webpack-config ./test/webpack.config.js ./test/*.spec.js",
     "test:watch": "mochapack --webpack-config ./test/webpack.config.js ./test/*.spec.js --watch",
     "coverage": "cross-env NODE_ENV=test nyc npm run test",
-    "security": "nsp check",
+    "security": "npm audit",
     "travis:lint": "npm run lint && npm run security",
     "travis:test": "npm run test",
     "travis:coverage": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test ",
